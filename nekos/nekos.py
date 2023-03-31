@@ -27,16 +27,20 @@ def img(target: str):
     ]
 
     if target is None:
-        raise errors.EmptyArgument("You have to at least define an argument in string format\nArguments: {}".format(possible))
+        raise errors.EmptyArgument(
+            f"You have to at least define an argument in string format\nArguments: {possible}"
+        )
 
     if target.lower() not in possible:
-        raise errors.InvalidArgument("You haven't added any valid arguments\nArguments: {}".format(possible))
+        raise errors.InvalidArgument(
+            f"You haven't added any valid arguments\nArguments: {possible}"
+        )
 
     try:
         if target.lower() == "random_hentai_gif":
             r = http.get("/img/Random_hentai_gif")
         else:
-            r = http.get("/img/" + target.lower())
+            r = http.get(f"/img/{target.lower()}")
     except Exception as e:
         raise errors.NothingFound(noresponse)
 
@@ -47,7 +51,7 @@ def owoify(text: str):
     if text is None:
         raise errors.EmptyArgument("You have to enter a string you want to enter to API")
 
-    r = http.get("/owoify?text=" + urllib.parse.quote(text))
+    r = http.get(f"/owoify?text={urllib.parse.quote(text)}")
     return r["owo"]
 
 
